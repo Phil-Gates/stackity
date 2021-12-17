@@ -26,41 +26,37 @@ class Stack:
         else:
             sys.stderr(f"invalid operation: {_type}")
 
-    def notequalpush(self, item):
-        if self.pop() != self.pop():
-            self.push(item)
-
 
 class Compiler:
     def __init__(self, dump) -> None:
         self.dump = dump
+        self.tabs = ""
 
-    def compile_file(self, file_name):
+    def compile(self, script):
         push_mode = False
         op_mode = False
-        if_mode = False
-        with open(file_name, "r") as file:
-            script = file.read()
+        loop_mode = False
         with open(self.dump, "w") as file:
             file.write("from brainstack import Stack\n")
             file.write("S = Stack()\n")
             for cmd in script:
-                if (not push_mode) and (not op_mode) and (not if_mode):
+                if (not push_mode) and (not op_mode) and (not loop_mode):
                     if cmd == "&":
-                        file.write("S.push(")
+                        file.write(self.tabs + "S.push(")
                     elif cmd == "<":
                         push_mode = True
                     elif cmd == "!":
-                        file.write("S.notequalpush(")
+                        file.write("while S.pop() != S.pop():")
                     elif cmd == "[":
-                        if_mode = True
+                        loop_mode = True
+                        self.tabs += "\t"
                     elif cmd == "$":
-                        file.write("S.operation(")
+                        file.write(self.tabs + "S.operation(")
                         op_mode = True
                     elif cmd == "*":
-                        file.write("print(S.pop())")
+                        file.write(self.tabs + "print(S.pop())")
                     elif cmd == "?":
-                        file.write("S.push(input('>'))")
+                        file.write(self.tabs + "S.push(input('>'))")
                 elif push_mode:
                     if cmd == ">":
                         push_mode = False
@@ -71,9 +67,14 @@ class Compiler:
                     file.write('"' + cmd + '"')
                     file.write(")\n")
                     op_mode = False
-                elif if_mode:
+                elif loop_mode:
                     if cmd == "]":
-                        if_mode = False
-                        file.write(")\n")
+                        loop_mode = False
+                        self.tabs = self.tabs[:-1]
                     else:
-                        file.write(cmd)
+                        file.write(self.tabs + cmd + "\n")
+
+    def compile_file(self, file_name):
+        with open(file_name, "r") as file:
+            script = file.read()
+        compile(script)
