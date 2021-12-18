@@ -38,14 +38,14 @@ Use `-r` to run the code after the `-r`
 Use `-f` to specify file to compile
 
 # Examples #
-`Hello, World!` in brainstack:
+`Hello, World!` in stackity:
 ```
-python3 brainstack.py -r "<'Hello, World!'>*" -d "dump.py"
+python3 stackity.py -r "<'Hello, World!'>*" -d "dump.py"
 ```
 (run "dump.py" to use)
 <br>
-`truth-machine` in brainstack:
+`truth-machine` in stackity:
 ```
-python3 brainstack.py -r "?%[%*%]*" -d dump.py
+python3 stackity.py -r "?%[%*%]*" -d dump.py
 ```
 (run "dump.py" to use)
