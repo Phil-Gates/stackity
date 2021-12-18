@@ -1,4 +1,4 @@
-# brainstack #
+# stackity #
 A stack based esoteric programming language (so original!)
 
 # Commands #

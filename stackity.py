@@ -18,7 +18,7 @@ class _ArgumentParser(argparse.ArgumentParser):
 
 
 Parser = _ArgumentParser(
-    description="Brainstack: stack based esoteric programming language."
+    description="stackity: stack based esoteric programming language."
 )
 
 
@@ -108,13 +108,13 @@ class Compiler:
         self.dump = dump
 
     def compile(self, script: str) -> None:
-        """Compile a brainstack script to the dump."""
+        """Compile a stackity script to the dump."""
         tabs = ""
         push_mode = False
         op_mode = False
         mv_mode = False
         with open(self.dump, "w") as file:
-            file.write("from brainstack import Stack\n")
+            file.write("from stackity import Stack\n")
             file.write("S = Stack()\n")
             for cmd in script:
                 if (not push_mode) and (not op_mode) and (not mv_mode):
