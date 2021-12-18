@@ -68,6 +68,6 @@ python stackity.py -r "<'Hello, World&wow;'>*" -d "dump.py"
 <br>
 `truth-machine` in stackity:
 ```
-python stackity.py -r "?%[%*%]*" -d dump.py
+python stackity.py -r "?%[%*%]*" -d "dump.py"
 ```
 (run "dump.py" to use)
