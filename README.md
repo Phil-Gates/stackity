@@ -62,12 +62,12 @@ Use `-f` to specify file to compile
 # Examples #
 `Hello, World!` in stackity:
 ```
-python3 stackity.py -r "<'Hello, World!'>*" -d "dump.py"
+python stackity.py -r "<'Hello, World!'>*" -d "dump.py"
 ```
 (run "dump.py" to use)
 <br>
 `truth-machine` in stackity:
 ```
-python3 stackity.py -r "?%[%*%]*" -d dump.py
+python stackity.py -r "?%[%*%]*" -d dump.py
 ```
 (run "dump.py" to use)
