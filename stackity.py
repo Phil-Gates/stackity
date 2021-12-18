@@ -110,7 +110,7 @@ class Stack:
                 logger.exception(f"invalid operation: {_type}")
                 sys.exit()
         except SyntaxError:
-            logger.exception(f"cannot preform operation '{_type}'")
+            logger.exception(f"cannot perform operation '{_type}'")
             sys.exit()
 
 
