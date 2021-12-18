@@ -93,6 +93,14 @@ class Stack:
             logger.exception(f"invalid type for converting to char: {using}")
             sys.exit()
 
+    def tonum(self) -> None:
+        """Converts top value of tsack into a number."""
+        try:
+            using = self.pop()
+            self.push(ord(using))
+        except TypeError:
+            logger.exception(f"invalid type for converting to num: {using}")
+
     def operation(self, _type: str) -> None:
         """
         Perform an operation on first two items on stack. (+, -, *, /)
@@ -150,6 +158,8 @@ class Compiler:
                         tabs = tabs[:-1]
                     elif cmd == "#":
                         file.write(tabs + "S.toascii()\n")
+                    elif cmd == "&":
+                        file.write(tabs + "S.tonum()\n")
                     elif cmd == "$":
                         file.write(tabs + "S.operation(")
                         op_mode = True
@@ -164,6 +174,8 @@ class Compiler:
                         file.write(tabs + "\t\t" + "break\n")
                         file.write(tabs + "\t" + "except ValueError:\n")
                         file.write(tabs + "\t\t" + "print('Invalid input.')\n")
+                    elif cmd == "~":
+                        file.write(tabs + "S.push(input('>'))")
                     elif cmd == "%":
                         file.write(tabs + "S.copy()\n")
                     elif cmd == "@":
