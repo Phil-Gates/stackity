@@ -3,7 +3,7 @@
 import sys
 import argparse
 import logging
-from typing import Any
+from typing import Any, List
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.ERROR)
 class _ArgumentParser(argparse.ArgumentParser):
     """Custom error message."""
 
-    def error(self, message):
+    def error(self, message: str) -> None:
         """Custom error message."""
         self.print_help()
         logger.exception(f"\n{message}\n")
@@ -24,7 +24,7 @@ Parser = _ArgumentParser(
 )
 
 
-def _parse_args():
+def _parse_args() -> List:
     """Nicer than doing it at start of code."""
     Parser.add_argument("-r", "--run", type=str, help="code to run")
     Parser.add_argument(
@@ -40,21 +40,24 @@ class Stack:
     def __init__(self) -> None:
         """
         Initialize variables.
-        self.items: list version of stack
+        self.__items: items in stack
         """
-        self.items = []
+        self.__items = []
 
     def push(self, item: Any) -> None:
-        """Push an item to the stack."""
+        """
+        Push an item to the stack.
+        item: (Any) item to push
+        """
         try:
-            self.items.append(item.replace("&gt;", ">"))
+            self.__items.append(item.replace("&gt;", ">"))
         except AttributeError:
-            self.items.append(item)
+            self.__items.append(item)
 
     def pop(self) -> Any:
         """Take an item from the stack and return it."""
         try:
-            return self.items.pop()
+            return self.__items.pop()
         except IndexError:
             logger.exception("cannot pop from empty list")
 
@@ -66,12 +69,15 @@ class Stack:
 
     def flip(self) -> None:
         """Flip the stack."""
-        self.items = self.items[::-1]
+        self.__items = self.__items[::-1]
 
     def move(self, index: int) -> None:
-        """Move index specified to top of stack. (index starts from bottom [0])"""
+        """
+        Move index specified to top of stack. (index starts from bottom [0])
+        index: (int) index to move
+        """
         try:
-            self.push(self.items.pop(index))
+            self.push(self.__items.pop(index))
         except ValueError:
             logger.exception(f"invalid index for move: {index}")
 
@@ -84,7 +90,10 @@ class Stack:
             logger.exception(f"invalid type for converting to char: {using}")
 
     def operation(self, _type: str) -> None:
-        """Preform an operation on first two items on stack. (+, -, *, /)"""
+        """
+        Perform an operation on first two items on stack. (+, -, *, /)
+        _type: (str) type of operation to perform
+        """
         try:
             if _type in ["+", "-", "*", "/"]:
                 first = self.pop()
@@ -105,12 +114,15 @@ class Compiler:
     def __init__(self, dump: str) -> None:
         """
         Get dump loc..
-        self.dump: dump loc.
+        dump: dump loc. (str)
         """
         self.dump = dump
 
     def compile(self, script: str) -> None:
-        """Compile a stackity script to the dump."""
+        """
+        Compile a stackity script to the dump.
+        script: (str) stackity code
+        """
         tabs = ""
         push_mode = False
         op_mode = False
@@ -169,7 +181,10 @@ class Compiler:
                         file.write(cmd)
 
     def compile_file(self, file_name: str) -> None:
-        """Compile a file."""
+        """
+        Compile a file.
+        file_name: (str) file to compile
+        """
         with open(file_name, "r") as file:
             script = file.read()
         self.compile(script)
