@@ -50,7 +50,7 @@ class Stack:
         item: (Any) item to push
         """
         try:
-            self.__items.append(item.replace("&gt;", ">"))
+            self.__items.append(item.replace("&gt;", ">").replace("&wow;", "!"))
         except AttributeError:
             self.__items.append(item)
 
@@ -111,23 +111,21 @@ class Stack:
 class Compiler:
     """Store dump for compilation and compile."""
 
-    def __init__(self, dump: str) -> None:
-        """
-        Get dump loc..
-        dump: dump loc. (str)
-        """
-        self.dump = dump
-
-    def compile(self, script: str) -> None:
+    def compile(self, script: str, dump: str = None) -> None:
         """
         Compile a stackity script to the dump.
         script: (str) stackity code
         """
+        if not dump:
+            try:
+                dump = self.dump
+            except AttributeError:
+                logger.error("no dump specified")
         tabs = ""
         push_mode = False
         op_mode = False
         mv_mode = False
-        with open(self.dump, "w") as file:
+        with open(dump, "w") as file:
             file.write("from stackity import Stack\n")
             file.write("S = Stack()\n")
             for cmd in script:
@@ -180,11 +178,12 @@ class Compiler:
                     else:
                         file.write(cmd)
 
-    def compile_file(self, file_name: str) -> None:
+    def compile_file(self, file_name: str, dump: str = "dump.py") -> None:
         """
         Compile a file.
         file_name: (str) file to compile
         """
+        self.dump = dump
         with open(file_name, "r") as file:
             script = file.read()
         self.compile(script)
@@ -193,10 +192,10 @@ class Compiler:
 if __name__ == "__main__":
     args = _parse_args()
     if len(sys.argv) > 1:
-        C = Compiler(args.dump)
+        C = Compiler()
         if args.file:
-            C.compile_file(args.file)
+            C.compile_file(args.file, args.dump)
         elif args.run:
-            C.compile(args.run)
+            C.compile(args.run, args.dump)
     else:
         Parser.error("no flags provided")
