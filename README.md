@@ -30,6 +30,10 @@ A stack based esoteric programming language (so original!)
 
 <br>
 
+`&`: convert top value on stack to an int if it is a char; if not, raise an error
+
+<br>
+
 `$`: start operation mode; will perform operation on top values of stack (+, -, *, /)
 
 <br>
@@ -42,7 +46,11 @@ A stack based esoteric programming language (so original!)
 
 <br>
 
-`?`: ask for input
+`?`: ask for input (then turns to int)
+
+<br>
+
+`~`: ask for input (stored as str)
 
 <br>
 
