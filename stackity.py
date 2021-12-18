@@ -17,6 +17,7 @@ class _ArgumentParser(argparse.ArgumentParser):
         """Custom error message."""
         self.print_help()
         logger.exception(f"\n{message}\n")
+        sys.exit()
 
 
 Parser = _ArgumentParser(
@@ -60,6 +61,7 @@ class Stack:
             return self.__items.pop()
         except IndexError:
             logger.exception("cannot pop from empty list")
+            sys.exit()
 
     def copy(self) -> None:
         """Copy the current top of stack on top of itself."""
@@ -80,6 +82,7 @@ class Stack:
             self.push(self.__items.pop(index))
         except ValueError:
             logger.exception(f"invalid index for move: {index}")
+            sys.exit()
 
     def toascii(self) -> None:
         """Converts top value of stack to a character."""
@@ -88,6 +91,7 @@ class Stack:
             self.push(chr(using))
         except TypeError:
             logger.exception(f"invalid type for converting to char: {using}")
+            sys.exit()
 
     def operation(self, _type: str) -> None:
         """
@@ -104,8 +108,10 @@ class Stack:
                     self.push(eval(f"{first}{_type}{second}"))
             else:
                 logger.exception(f"invalid operation: {_type}")
+                sys.exit()
         except SyntaxError:
             logger.exception(f"cannot preform operation '{_type}'")
+            sys.exit()
 
 
 class Compiler:
@@ -120,7 +126,8 @@ class Compiler:
             try:
                 dump = self.dump
             except AttributeError:
-                logger.error("no dump specified")
+                logger.exception("no dump specified")
+                sys.exit()
         tabs = ""
         push_mode = False
         op_mode = False
