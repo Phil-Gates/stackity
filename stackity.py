@@ -103,11 +103,11 @@ class Stack:
 
     def operation(self, _type: str) -> None:
         """
-        Perform an operation on first two items on stack. (+, -, *, /)
+        Perform an operation on first two items on stack. (+, -, *, /, %)
         _type: (str) type of operation to perform
         """
         try:
-            if _type in ["+", "-", "*", "/"]:
+            if _type in ["+", "-", "*", "/", "%"]:
                 first = self.pop()
                 second = self.pop()
                 if isinstance(first, str) and isinstance(second, str):
@@ -156,6 +156,17 @@ class Compiler:
                         tabs += "\t"
                     elif cmd == "]":
                         tabs = tabs[:-1]
+                    elif cmd == "(":
+                        file.write(tabs + "if S.pop() == 0:\n")
+                        tabs += "\t"
+                    elif cmd == ")":
+                        tabs = tabs[:-1]
+                        file.write(tabs + "else:\n")
+                        tabs += "\t"
+                    elif cmd == "|":
+                        tabs = tabs[:-1]
+                    elif cmd == "_":
+                        file.write(tabs + "pass\n")
                     elif cmd == "#":
                         file.write(tabs + "S.toascii()\n")
                     elif cmd == "&":
