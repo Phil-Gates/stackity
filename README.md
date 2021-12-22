@@ -26,6 +26,22 @@ A stack based esoteric programming language (so original!)
 
 <br>
 
+`(`: start an `if` that pops the stack and if it is zero, execute code after it
+
+<br>
+
+`)`: stop executing code from `(` and start an else
+
+<br>
+
+`|`: stop the else block that `)` began
+
+<br>
+
+`_`: equivalent to `pass` in Python use in `if-else` block where you don't need part of it eg. `($+)_|`
+
+<br>
+
 `#`: convert top value on stack to an ascii character if it is an int; if not, raise an error
 
 <br>
@@ -89,3 +105,11 @@ python stackity.py -r "?%[%*%]*" -d "tm.py"
 python stackity.py -f "99b.st" -d "99b.py"
 ```
 (run "99b.py" to use)
+
+<br>
+
+`FizzBuzz` in stackity:
+```
+python stackity.py -f "fizzbuzz.st" -d "fizzbuzz.py"
+```
+(run "fizzbuzz.py" to use)
