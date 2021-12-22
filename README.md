@@ -38,7 +38,7 @@ A stack based esoteric programming language (so original!)
 
 <br>
 
-`_`: equivalent to `pass` in Python use in `if-else` block where you don't need part of it eg. `($+)_|`
+`_`: equivalent to `pass` in Python; use in `if-else` block where you don't need part of it eg. `($+)_|`
 
 <br>
 
