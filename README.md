@@ -113,3 +113,11 @@ python stackity.py -f "99b.st" -d "99b.py"
 python stackity.py -f "fizzbuzz.st" -d "fizzbuzz.py"
 ```
 (run "fizzbuzz.py" to use)
+
+<br>
+
+`Calculator` in stackity: (first num, second num, operation)
+```
+python stackity.py -f "calc.st" -d "calc.py"
+```
+(run "calc.py" to use)
