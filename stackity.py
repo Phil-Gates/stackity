@@ -186,7 +186,7 @@ class Compiler:
                         file.write(tabs + "\t" + "except ValueError:\n")
                         file.write(tabs + "\t\t" + "print('Invalid input.')\n")
                     elif cmd == "~":
-                        file.write(tabs + "S.push(input('>'))")
+                        file.write(tabs + "S.push(input('>'))\n")
                     elif cmd == "%":
                         file.write(tabs + "S.copy()\n")
                     elif cmd == "@":
