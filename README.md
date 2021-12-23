@@ -2,7 +2,7 @@
 A stack based esoteric programming language (so original!)
 
 # Commands #
-`<`: pushes whatever comes after it to the stack
+`<`: pushes whatever comes after it to the stack; when using newlines, use a triple quoted string
 
 <br>
 
@@ -50,7 +50,7 @@ A stack based esoteric programming language (so original!)
 
 <br>
 
-`$`: start operation mode; will perform operation on top values of stack (+, -, *, /)
+`$`: start operation mode; will perform operation on top values of stack (+, -, *, /, %)
 
 <br>
 
