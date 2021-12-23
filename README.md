@@ -76,6 +76,14 @@ A stack based esoteric programming language (so original!)
 
 `@`: flip the stack
 
+<br>
+
+`x`: start defining a function called x (pops stack twice and stores in `a` and `b` can be pushed with `<a>` or `<b>`) / call a function (just type `x`)
+
+<br>
+
+`X`: stop defining a function; anything after is considered a call to the function
+
 # Compilation #
 Use `-d` to specify dump file.
 <br>

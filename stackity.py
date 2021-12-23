@@ -140,6 +140,7 @@ class Compiler:
         push_mode = False
         op_mode = False
         mv_mode = False
+        fun_mode = True
         with open(dump, "w") as file:
             file.write("from stackity import Stack\n")
             file.write("S = Stack()\n")
@@ -191,6 +192,16 @@ class Compiler:
                         file.write(tabs + "S.copy()\n")
                     elif cmd == "@":
                         file.write(tabs + "S.flip()\n")
+                    elif cmd == "x" and fun_mode:
+                        file.write(tabs + "def x():\n")
+                        tabs += "\t"
+                        file.write(tabs + "a = S.pop()\n")
+                        file.write(tabs + "b = S.pop()\n")
+                    elif cmd == "X" and fun_mode:
+                        fun_mode = False
+                        tabs = tabs[:-1]
+                    elif cmd == "x":
+                        file.write("x()\n")
                 elif push_mode:
                     if cmd == ">":
                         push_mode = False
