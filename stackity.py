@@ -147,7 +147,7 @@ class Compiler:
             for cmd in script:
                 if (not push_mode) and (not op_mode) and (not mv_mode):
                     if cmd == "<":
-                        file.write(tabs + "S.push(")
+                        file.write(tabs + 'S.push(eval("')
                         push_mode = True
                     elif cmd == "{":
                         file.write(tabs + "S.move(")
@@ -205,9 +205,9 @@ class Compiler:
                 elif push_mode:
                     if cmd == ">":
                         push_mode = False
-                        file.write(")\n")
+                        file.write('"))\n')
                     else:
-                        file.write(cmd)
+                        file.write(cmd.replace('"', "'"))
                 elif op_mode:
                     file.write("'" + cmd + "'")
                     file.write(")\n")
