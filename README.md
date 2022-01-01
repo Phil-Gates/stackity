@@ -2,7 +2,7 @@
 A stack based esoteric programming language (so original!)
 
 # Commands #
-`<`: pushes whatever comes after it to the stack; when using newlines, use a triple quoted string
+`<`: pushes whatever comes after it to the stack; when using newlines, use a triple quoted string, or escape the backslash
 
 <br>
 
